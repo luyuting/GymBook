@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts> 
+	<package name="json" namespace="/json" extends="json-default">
+		<action name="loginMobile" class="com.dlut.gym.action.LoginAction">
+			<result type="json" name="*"><param name="root">resultMap</param></result>
+		</action>
+		<action name="*" class="com.dlut.gym.action.ReserveAction" method="{1}">
+			<result type="json"><param name="root">resultMap</param></result>
+		</action>
+	</package> 
+</struts>
