@@ -3,16 +3,22 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts> 
-	<package name="json" namespace="/json" extends="json-default">
+	<package name="jsonUser" namespace="/user" extends="json-default">
 		<action name="loginMobile" class="com.dlut.gym.action.LoginAction">
 			<result type="json" name="*"><param name="root">resultMap</param></result>
 		</action>
+	</package>
+	<package name="jsonReserve" namespace="/reserve" extends="json-default">
 		<action name="*" class="com.dlut.gym.action.ReserveAction" method="{1}">
 			<result type="json"><param name="root">resultMap</param></result>
 		</action>
+	</package>
+	<package name="jsonVenues" namespace="/venues" extends="json-default">
 		<action name="*" class="com.dlut.gym.action.VenuesAction" method="{1}">
 			<result type="json"><param name="root">resultMap</param></result>
 		</action>
+	</package>
+	<package name="jsonSport" namespace="/sport" extends="json-default">
 		<action name="*" class="com.dlut.gym.action.SportAction" method="{1}">
 			<result type="json"><param name="root">resultMap</param></result>
 		</action>

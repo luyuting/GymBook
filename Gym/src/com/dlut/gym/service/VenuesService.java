@@ -19,7 +19,7 @@ public class VenuesService extends BaseService {
 	 */
 	public Map<String, String> getVenuesInfo(List<Object> paramList) {
 		String sql = "select id, v_name, num, charge, time(open_time) open_time, "
-				+ "time(close_time) close_time from tbl_venues where venues_id = ?";
+				+ "time(close_time) close_time from tbl_venues where id = ?";
 		return this.getQueryMap(sql, paramList);
 	}
 	
@@ -30,8 +30,8 @@ public class VenuesService extends BaseService {
 	 */
 	public List<Map<String, String>> getVenuesRecord(List<Object> paramList) {
 		String sql = "select user_id, location, time(order_start_time) order_start_time,"
-				+ "time(order_end_time) order_end_time from tbl_record where venues_id "
-				+ "= ? and date(order_start_time) = ?";
+				+ "time(order_end_time) order_end_time from tbl_record where id = ? and "
+				+ "date(order_start_time) = ?";
 		return this.getQueryList(sql, paramList);
 	}
 }
