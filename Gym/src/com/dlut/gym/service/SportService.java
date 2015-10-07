@@ -18,7 +18,7 @@ public class SportService extends BaseService {
 	 * @return 包含指定运动项目的体育馆 id，体育馆名 v_name
 	 */
 	public List<Map<String, String>> getSportVenues(List<Object> paramList) {
-		String sql = "select id, v_name from tbl_sport where sport_id = ?";
+		String sql = "select id, v_name from tbl_venues where sport_id = ?";
 		return this.getQueryList(sql, paramList);
 	}
 }
