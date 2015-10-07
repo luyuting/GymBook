@@ -15,10 +15,11 @@ public class VenuesService extends BaseService {
 	/**
 	 * 
 	 * @param paramList (venuesId)
-	 * @return 指定场馆 id，场馆名 v_name，场地数 num 
+	 * @return 指定场馆 id，场馆名 v_name，场地数 num，场馆费用 charge， 开馆时间 open_time， 闭馆时间 close_time
 	 */
 	public Map<String, String> getVenuesInfo(List<Object> paramList) {
-		String sql = "select id, v_name, num  from tbl_venues where id = ?";
+		String sql = "select id, v_name, num, charge, time(open_time) open_time, "
+				+ "time(close_time) close_time  from tbl_venues where id = ?";
 		return this.getQueryMap(sql, paramList);
 	}
 	
