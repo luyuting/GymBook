@@ -14,8 +14,8 @@ public class ReserveAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private HttpSession session=ServletActionContext.getRequest().getSession();
-	private String userId=(String)session.getAttribute(session.getId());
+	private HttpSession session = ServletActionContext.getRequest().getSession();
+	private String userId = (String)session.getAttribute(session.getId());
 	
 	private String startTime;
 	private String endTime;
@@ -99,7 +99,7 @@ public class ReserveAction extends BaseAction {
 		paramList.add(endTime);
 		
 		ReserveService reserve = new ReserveService();
-		setResultMap(C.code.RECORD, C.message.SUCCESS, reserve.getReserve(paramList));
+		setResultMap(C.code.RECORD, C.message.SUCCESS, C.name.RESERVE_MAPNAME, reserve.getReserve(paramList));
 		return SUCCESS;
 	}
 	

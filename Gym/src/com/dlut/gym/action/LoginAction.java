@@ -63,7 +63,7 @@ public class LoginAction extends BaseAction implements SessionAware, ServletRequ
 			String sha = SHA256(userPassword, nowTime);
 			if(password.equalsIgnoreCase(sha)){
 				result="success";
-				setResultMap(C.code.LOGIN, C.message.SUCCESS, user.getUserInfo(paramList));
+				setResultMap(C.code.LOGIN, C.message.SUCCESS, C.name.LOGIN_MAPNAME, user.getUserInfo(paramList));
 				
 				HttpServletRequest request = ServletActionContext.getRequest();
 				String sessionID = request.getSession().getId();

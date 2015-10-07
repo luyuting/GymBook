@@ -12,48 +12,60 @@ import java.util.*;
 import com.dlut.gym.db.*;
 public class BaseService {
 	
-	protected Connection conn=null;
-	protected PreparedStatement pstmt=null;
-	protected ResultSet rs=null;
+	protected Connection conn = null;
+	protected PreparedStatement pstmt = null;
+	protected ResultSet rs = null;
 	
-	protected int execute(String sql,List<Object> paramList){
-		if(sql==null||sql.trim().equals("")){
+	/**
+	 * 
+	 * @param sql
+	 * @param paramList
+	 * @return 执行增、删、改操作，返回影响行数；sql 语句为空时返回 -1，pstmt 初始化失败时返回-2
+	 */
+	protected int execute(String sql,List<Object> paramList) {
+		if(sql == null||sql.trim().equals("")) {
 			return -1;
 		}
-		int result=0;
-		try{
-			conn=BaseService.getConnection();
-			pstmt=BaseService.getPreparedStatement(conn,sql);
+		int result = 0;
+		try {
+			conn = BaseService.getConnection();
+			pstmt = BaseService.getPreparedStatement(conn,sql);
 			setPreparedStatementParam(pstmt,paramList);
-			if(pstmt==null)
+			if(pstmt == null)
 				return -2;
-			result=pstmt.executeUpdate();
-		}catch(Exception e){
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
 			//throw new Exception(e);
-		}finally{
+		}finally {
 			BaseService.closeStatement(pstmt);
 			BaseService.closeConn(conn);
 		}
 		return result;
 	}
 	
-	protected int getCount(String sql,List<Object> paramList){
-		if(sql==null||sql.trim().equals("")){
+	/**
+	 * 
+	 * @param sql
+	 * @param paramList
+	 * @return 获得满足指定条件的记录行数；sql 语句为空时返回 -1，pstmt 初始化失败时返回-2
+	 */
+	protected int getCount(String sql,List<Object> paramList) {
+		if(sql == null||sql.trim().equals("")) {
 			return -1;
 		}
-		int result=0;
-		try{
-			conn=BaseService.getConnection();
-			pstmt=BaseService.getPreparedStatement(conn,sql);
+		int result = 0;
+		try {
+			conn = BaseService.getConnection();
+			pstmt = BaseService.getPreparedStatement(conn,sql);
 			setPreparedStatementParam(pstmt,paramList);
-			if(pstmt==null)
+			if(pstmt == null)
 				return -2;
-			rs=BaseService.getResultSet(pstmt);
+			rs = BaseService.getResultSet(pstmt);
 			if(rs.next())
-				result=rs.getInt(1);
-		}catch(Exception e){
+				result = rs.getInt(1);
+		}catch(Exception e) {
 			//throw new Exception(e);
-		}finally{
+		}finally {
 			BaseService.closeStatement(pstmt);
 			BaseService.closeConn(conn);
 			BaseService.closeResultSet(rs);
@@ -61,19 +73,36 @@ public class BaseService {
 		return result;
 	}
 	
-	protected List<Map<String,String>> getQueryList(String sql,List<Object> paramList){
-		if(sql==null||sql.trim().equals("")){
+	/**
+	 * 
+	 * @param sql
+	 * @param paramList
+	 * @return 查询单行记录返回map
+	 */
+	protected Map<String, String> getQueryMap(String sql,List<Object> paramList) {
+		List<Map<String, String>> resultList = this.getQueryList(sql, paramList);
+		return resultList == null ? null : resultList.get(0);
+	}
+	
+	/**
+	 * 
+	 * @param sql
+	 * @param paramList
+	 * @return 查询多行记录 ；sql 语句为空或 pstmt，rs 初始化失败时返回 null
+	 */
+	protected List<Map<String, String>> getQueryList(String sql,List<Object> paramList) {
+		if(sql == null||sql.trim().equals("")) {
 			return null;
 		}
-		List<Map<String,String>> queryList=null;
-		try{
-			conn=BaseService.getConnection();
-			pstmt=BaseService.getPreparedStatement(conn,sql);
+		List<Map<String,String>> queryList = null;
+		try {
+			conn = BaseService.getConnection();
+			pstmt = BaseService.getPreparedStatement(conn,sql);
 			setPreparedStatementParam(pstmt,paramList);
-			if(pstmt==null)
+			if(pstmt == null)
 				return null;
-			rs=BaseService.getResultSet(pstmt);
-			queryList=getQueryList(rs);	
+			rs = BaseService.getResultSet(pstmt);
+			queryList = getQueryList(rs);	
 		}catch(Exception e){
 			//throw new Exception(e);
 		}finally{
@@ -84,93 +113,93 @@ public class BaseService {
 		return queryList;
 	}
 	
-	private static void setPreparedStatementParam(PreparedStatement pstmt,List<Object> paramList)throws Exception{
-		if(pstmt==null||paramList==null||paramList.isEmpty())
+	private static void setPreparedStatementParam(PreparedStatement pstmt,List<Object> paramList)throws Exception {
+		if(pstmt == null||paramList == null||paramList.isEmpty())
 			return;
 		DateFormat df=DateFormat.getDateTimeInstance();
-		for(int i=0;i<paramList.size();i++){
-			if(paramList.get(i) instanceof Integer){
+		for(int i = 0;i < paramList.size();i++) {
+			if(paramList.get(i) instanceof Integer) {
 				int paramValue=((Integer)paramList.get(i)).intValue();
-				pstmt.setInt(i+1,paramValue);
+				pstmt.setInt(i + 1,paramValue);
 			}
-			else if(paramList.get(i) instanceof Float){
+			else if(paramList.get(i) instanceof Float) {
 				float paramValue=((Float)paramList.get(i)).floatValue();
-				pstmt.setFloat(i+1,paramValue);
+				pstmt.setFloat(i + 1,paramValue);
 			}
-			else if(paramList.get(i) instanceof Double){
+			else if(paramList.get(i) instanceof Double) {
 				double paramValue=((Double)paramList.get(i)).doubleValue();
-				pstmt.setDouble(i+1,paramValue);
+				pstmt.setDouble(i + 1,paramValue);
 			}
-			else if(paramList.get(i) instanceof Date){
-				pstmt.setString(i+1,df.format((Date)paramList.get(i)));
+			else if(paramList.get(i) instanceof Date) {
+				pstmt.setString(i + 1,df.format((Date)paramList.get(i)));
 			}
-			else if(paramList.get(i) instanceof Long){
+			else if(paramList.get(i) instanceof Long) {
 				long paramValue=((Long)paramList.get(i)).longValue();
-				pstmt.setLong(i+1,paramValue);
+				pstmt.setLong(i + 1,paramValue);
 			}
-			else if(paramList.get(i) instanceof String){
-				pstmt.setString(i+1,(String)paramList.get(i));
+			else if(paramList.get(i) instanceof String) {
+				pstmt.setString(i + 1,(String)paramList.get(i));
 			}
 		}
 	}
 	
-	private static Connection getConnection()throws Exception{
+	private static Connection getConnection()throws Exception {
 		return DBConnection.getConnection();
 	}
 	
-	private static PreparedStatement getPreparedStatement(Connection conn,String sql)throws Exception{
-		if(conn==null||sql==null||sql.trim().equals(""))
+	private static PreparedStatement getPreparedStatement(Connection conn,String sql)throws Exception {
+		if(conn == null||sql == null||sql.trim().equals(""))
 			return null;
-		PreparedStatement pstmt=conn.prepareStatement(sql.trim());
+		PreparedStatement pstmt = conn.prepareStatement(sql.trim());
 		return pstmt;
 	}
 	
-	private static ResultSet getResultSet(PreparedStatement pstmt)throws Exception{
-		if(pstmt==null)
+	private static ResultSet getResultSet(PreparedStatement pstmt)throws Exception {
+		if(pstmt == null)
 			return null;
-		ResultSet rs=pstmt.executeQuery();
+		ResultSet rs = pstmt.executeQuery();
 		return rs;
 	} 
 	
-	private static List<Map<String,String>> getQueryList(ResultSet rs)throws Exception{
-		if(rs==null)
+	private static List<Map<String, String>> getQueryList(ResultSet rs)throws Exception {
+		if(rs == null)
 			return null;
-		ResultSetMetaData rsMetaData=rs.getMetaData();
-		int columnCount=rsMetaData.getColumnCount();
-		List<Map<String,String>> dataList=new ArrayList<Map<String,String>>();
-		while(rs.next()){
-			Map<String,String> dataMap=new HashMap<String,String>();
-			for(int i=0;i<columnCount;i++)
-				dataMap.put(rsMetaData.getColumnName(i+1),rs.getString(i+1));
+		ResultSetMetaData rsMetaData = rs.getMetaData();
+		int columnCount = rsMetaData.getColumnCount();
+		List<Map<String,String>> dataList = new ArrayList<Map<String, String>>();
+		while(rs.next()) {
+			Map<String,String> dataMap = new HashMap<String, String>();
+			for(int i = 0;i < columnCount;i++)
+				dataMap.put(rsMetaData.getColumnName(i + 1), rs.getString(i + 1));
 			dataList.add(dataMap);
 		}
 		return dataList;
 	}
 	
-	private static void closeConn(Connection conn){
+	private static void closeConn(Connection conn) {
 		if(conn==null)
 			return;
-		try{
+		try {
 			conn.close();
-		}catch(SQLException e){
+		}catch(SQLException e) {
 		}
 	}
 	
-	private static void closeStatement(Statement stmt){
+	private static void closeStatement(Statement stmt) {
 		if(stmt==null)
 			return;
-		try{
+		try {
 			stmt.close();
-		}catch(SQLException e){
+		}catch(SQLException e) {
 		}
 	}
 	
-	private static void closeResultSet(ResultSet rs){
+	private static void closeResultSet(ResultSet rs) {
 		if(rs==null)
 			return;
-		try{
+		try {
 			rs.close();
-		}catch(SQLException e){
+		}catch(SQLException e) {
 		}
 	}
 }
