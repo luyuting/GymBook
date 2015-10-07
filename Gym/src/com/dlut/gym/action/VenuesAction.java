@@ -25,7 +25,7 @@ public class VenuesAction extends BaseAction {
 	
 	public String getVenuesInfo() {
 		VenuesService venues = new VenuesService();
-		setResultMap(C.code.VENUES, C.message.SUCCESS, C.name.VENUES_MAPNAME, venues.getVenuesInfo(paramList));
+		setResultMap(C.code.VENUES, C.message.SUCCESS, C.name.VENUES_MAPNAME, venues.getVenuesInfo());
 		return SUCCESS;
 	}
 	
