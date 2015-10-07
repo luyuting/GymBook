@@ -25,7 +25,7 @@ public class BaseAction extends ActionSupport {
 	 * @param data		dataÊý¾Ý
 	 */
 	protected void setResultMap(int code, Map<String, String> message, String mapName, Object data) {
-		Map<String, Object> mapData=new HashMap<String, Object>();
+		Map<String, Object> mapData = new HashMap<String, Object>();
 		mapData.put(mapName, data);
 		
 		resultMap.clear();

@@ -56,8 +56,8 @@ public class ReserveService extends BaseService {
 	 * Ω· ¯ ±º‰ order_end_time
 	 */
 	public List<Map<String, String>> getReserveByDate(List<Object> paramList) {
-		String sql = "select v.v_name,r.location,r.order_start_time,r.order_end_time "
-				+ "	from tbl_venues v,tbl_record r where v.id = r.venues_id "
+		String sql = "select r.id, v.v_name, r.location, r.order_start_time, r.order_end_time "
+				+ "	from tbl_venues v, tbl_record r where v.id = r.venues_id "
 				+ " and r.user_id=? and date(r.order_start_time) = ? "
 				+ " order by r.order_start_time desc";
 		return this.getQueryList(sql, paramList);

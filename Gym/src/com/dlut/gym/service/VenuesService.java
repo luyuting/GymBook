@@ -33,4 +33,16 @@ public class VenuesService extends BaseService {
 				+ "date(order_start_time) = ?";
 		return this.getQueryList(sql, paramList);
 	}
+	
+	/**
+	 * 
+	 * @param paramList (venuesId, queryDay, queryTime)
+	 * @return 指定场馆，指定日期，指定时间段，已经预约场地对应的预约 id，用户 user_id，场地号 location，预约起始时间 order_start_time，结束时间 order_end_time
+	 */
+	public List<Map<String, String>> getVenuesRecordByTime(List<Object> paramList) {
+		String sql = "select id, user_id, location, time(order_start_time) order_start_time,"
+				+ "time(order_end_time) order_end_time from tbl_record where venues_id = ? and "
+				+ "date(order_start_time) = ? and time(order_start_time) = ?";
+		return this.getQueryList(sql, paramList);
+	}
 }
