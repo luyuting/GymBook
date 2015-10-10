@@ -9,8 +9,9 @@ public class ReserveService extends BaseService {
 	 * @return 返回数据库操作影响行数
 	 */
 	public int makeReserve(List<Object> paramList) {
-		String sql = "insert into tbl_record(venuesId, userId, location,"
-				+ " startTime, endTime) values(?, ?, ?, ?, ?)";
+		String sql = "insert into tbl_record(recordId, venuesId, userId, location,"
+				+ " startTime, endTime) values(concat(floor(1000+rand()*(9000)),unix_timestamp(now())),"
+				+ " ?, ?, ?, ?, ?)";
 		return this.execute(sql, paramList);
 	}
 	

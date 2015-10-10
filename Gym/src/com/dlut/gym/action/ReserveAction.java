@@ -23,7 +23,7 @@ public class ReserveAction extends BaseAction {
 	private int venuesId;
 	private int location;
 	
-	private int recordId;
+	private String recordId;
 	
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -45,7 +45,7 @@ public class ReserveAction extends BaseAction {
 		this.location = location;
 	}
 	
-	public void setRecordId(int recordId) {
+	public void setRecordId(String recordId) {
 		this.recordId = recordId;
 	}
 	
