@@ -10,6 +10,7 @@ public class C {
         public static final int RECORD = 1003;
         public static final int SPORT = 1004;
         public static final int VENUES = 1005;
+        public static final int NEWS = 1006;
     }
 	
 	public static final class message {
@@ -27,5 +28,6 @@ public class C {
 		public static final String RESERVE_MAPNAME = "Record"; 
 		public static final String VENUES_MAPNAME = "Venues";
 		public static final String SPORT_MAPNAME = "Sport";
+		public static final String NEWS_MAPNAME = "News";
 	}
 }

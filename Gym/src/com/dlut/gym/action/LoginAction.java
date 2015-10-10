@@ -58,7 +58,7 @@ public class LoginAction extends BaseAction implements SessionAware, ServletRequ
 			paramList.add(userId);
 			
 			UserService user = new UserService();
-			String userPassword = user.getPassword(paramList).get("id");
+			String userPassword = user.getPassword(paramList);
 			
 			String sha = SHA256(userPassword, nowTime);
 			if(password.equalsIgnoreCase(sha)){
@@ -69,7 +69,7 @@ public class LoginAction extends BaseAction implements SessionAware, ServletRequ
 				String sessionID = request.getSession().getId();
 			    request.getSession().setAttribute(sessionID, userId);
 			 
-			    String role = user.getRole(paramList).get("role");
+			    String role = user.getRole(paramList);
 	
 			    request.getSession().setAttribute(userId, role);
 			    

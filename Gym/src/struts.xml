@@ -23,4 +23,9 @@
 			<result type="json"><param name="root">resultMap</param></result>
 		</action>
 	</package> 
+	<package name="jsonNews" namespace="/news" extends="json-default">
+		<action name="*" class="com.dlut.gym.action.NewsAction" method="{1}">
+			<result type="json"><param name="root">resultMap</param></result>
+		</action>
+	</package>
 </struts>

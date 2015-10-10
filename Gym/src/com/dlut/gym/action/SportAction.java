@@ -28,7 +28,7 @@ public class SportAction extends BaseAction {
 			Map<String, String> sportItem = it.next();
 			
 			paramList.clear();
-			paramList.add(Integer.parseInt(sportItem.get("id")));
+			paramList.add(Integer.parseInt(sportItem.get("sportId")));
 			
 			dataItem.putAll(sportItem);
 			dataItem.put(C.name.VENUES_MAPNAME, sport.getSportVenues(paramList));
